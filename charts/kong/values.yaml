@@ -153,6 +153,23 @@ proxy:
 
   externalIPs: []
 
+# Define stream listens and their associated Kubernetes resources
+streamListens:
+  - name: stream-9000
+    containerPort: 9000
+    # Additional listen parameters, e.g. "ssl", "reuseport", "backlog=16384"
+    # This MUST include "ssl" if you wish to use SNI-based matching
+    parameters: []
+    service:
+      type: NodePort
+      # If you want to specify annotations for the admin service, uncomment the following
+      # line, add additional or adjust as needed, and remove the curly braces after 'annotations:'.
+      annotations: {}
+      #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+      servicePort: 9000
+      # Optionally set a static nodePort if the service type is NodePort
+      # nodePort: 32080
+
 # Custom Kong plugins can be loaded into Kong by mounting the plugin code
 # into the file-system of Kong container.
 # The plugin code should be present in ConfigMap or Secret inside the same
